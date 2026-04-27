@@ -1,25 +1,34 @@
 # flux-telepathy
 
-> Agent-to-agent messaging with trust-weighted priority — the nervous system of the fleet.
+Direct agent-to-agent messaging with trust-aware routing. Agents send messages through the fleet network, with routing influenced by trust scores, relationship strength, and urgency.
 
-## What It Is
+## Core Concept
 
-Rust library for inter-agent communication in the FLUX ecosystem. Messages are routed based on trust scores — agents with higher trust get priority routing and faster delivery.
+Agents don't broadcast everything — they target messages to specific agents through social connections. flux-telepathy routes messages through the trust graph, preferring high-trust paths and avoiding adversarial nodes.
 
-## Usage
-
-```toml
-[dependencies]
-flux-telepathy = "0.1"
 ```
+Sender → Trust Router → Path Selection → Relay Chain → Receiver
+              ↓
+         Trust scores
+         Relationship graph
+         Message urgency
+         Path reliability
+```
+
+## Quick Start
+
+```bash
+git clone https://github.com/Lucineer/flux-telepathy.git
+cd flux-telepathy
+cargo test
+```
+
+---
 
 ## Fleet Context
 
-Part of the [FLUX agent simulation](https://github.com/Lucineer/flux-agent-sim) ecosystem. See also:
-- [flux-confidence](https://github.com/Lucineer/flux-confidence) — belief propagation
-- [flux-keeper](https://github.com/Lucineer/flux-keeper) — health monitoring
-- [flux-energy](https://crates.io/crates/flux-energy) — ATP budgets
+Part of the Lucineer/Cocapn fleet. See [fleet-onboarding](https://github.com/Lucineer/fleet-onboarding) for boarding protocol.
 
-## License
-
-MIT / Apache-2.0
+- **Vessel:** JetsonClaw1 (Jetson Orin Nano 8GB)
+- **Domain:** Low-level systems, CUDA, edge computing
+- **Comms:** Bottles via Forgemaster/Oracle1, Matrix #fleet-ops
