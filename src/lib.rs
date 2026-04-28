@@ -1,6 +1,7 @@
 #![allow(dead_code)]
 #[derive(Clone,Debug,PartialEq)]
 pub enum MsgKind { Tell, Ask, Delegate, Broadcast, Report, Emergency }
+#[derive(Clone,Debug,PartialEq)]
 pub struct Message { id: u64, from: u32, to: u32, kind: MsgKind, payload: String, trust: f64, priority: u8, timestamp: u64, read: bool }
 pub struct Telepathy { inbox: Vec<Message>, outbox: Vec<Message>, sent: Vec<Message>, next_id: u64, trust_threshold: f64 }
 
@@ -42,5 +43,5 @@ mod tests {
     #[test] fn test_emergency_priority() { let mut t = Telepathy::new(); t.emergency(1, "fire!"); let msg = &t.outbox[0]; assert_eq!(msg.priority, 10); assert_eq!(msg.kind, MsgKind::Emergency); }
     #[test] fn test_filter_trust() { let mut t = Telepathy::new(); t.send(1, 2, MsgKind::Tell, "hi", 0.9); t.send(3, 2, MsgKind::Tell, "lo", 0.1); t.deliver(); assert_eq!(t.filter_trust(0.5).len(), 1); }
     #[test] fn test_trust_threshold() { let mut t = Telepathy::new(); t.set_trust_threshold(0.7); assert!((t.trust_threshold - 0.7).abs() < 1e-6); }
-    #[test] fn test_receive_priority() { let mut t = Telepathy::new(); t.emergency(1, "fire!"); t.send(1, 2, MsgKind::Tell, "hi", 0.5); t.deliver(); assert_eq!(t.receive_priority(2, 5).len(), 1); }
+    #[test] fn test_receive_priority() { let mut t = Telepathy::new(); t.send(1, 2, MsgKind::Emergency, "fire!", 1.0); t.send(1, 2, MsgKind::Tell, "hi", 0.5); t.deliver(); assert_eq!(t.receive_priority(2, 5).len(), 1); }
 }
