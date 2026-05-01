@@ -2,6 +2,9 @@
 name = "flux-telepathy"
 version = "0.1.0"
 edition = "2021"
+homepage = "https://github.com/Lucineer"
+repository = "https://github.com/Lucineer/flux-telepathy"
+license = "MIT OR Apache-2.0"
 description = "Agent-to-agent messaging with trust-weighted priority — the nervous system of the fleet"
 
 [dependencies]
